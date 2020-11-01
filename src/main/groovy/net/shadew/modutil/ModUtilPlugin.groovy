@@ -104,10 +104,12 @@ class ModUtilPlugin implements Plugin<Project> {
             group = 'modutil'
             from java.sourceSets.main.allSource
             into "$project.buildDir/sources/java/main"
-            annotation ext.constantAnnotation
             constants {
                 ext.getConstant()
             }
+        }
+        project.afterEvaluate {
+            injectConstants.annotation ext.constantAnnotation
         }
 
         def compileJava = project.tasks.compileJava as JavaCompile
