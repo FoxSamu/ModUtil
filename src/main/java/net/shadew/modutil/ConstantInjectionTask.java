@@ -91,7 +91,6 @@ public class ConstantInjectionTask extends Copy {
                            Closure<?> cl = (Closure<?>) fv;
                            fv = cl.call();
                        }
-                       System.out.println(fv.getClass());
                        if (fv instanceof String)
                            field.setStringInitializer((String) fv);
                        else {
