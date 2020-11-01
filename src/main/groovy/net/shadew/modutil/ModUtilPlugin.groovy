@@ -22,7 +22,6 @@ import net.shadew.modutil.changelog.VersionJsonTask
 import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.plugins.JavaPluginConvention
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.api.tasks.compile.JavaCompile
@@ -105,8 +104,8 @@ class ModUtilPlugin implements Plugin<Project> {
             from java.sourceSets.main.allSource
             into "$project.buildDir/sources/java/main"
             argument 'value'
-            constants {
-                ext.getConstant()
+            constants { String name ->
+                return ext.getConstant(name)
             }
         }
         project.afterEvaluate {

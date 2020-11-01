@@ -22,12 +22,8 @@ import org.gradle.api.internal.file.copy.CopyAction;
 import org.gradle.api.tasks.Copy;
 import org.jboss.forge.roaster.model.source.AnnotationSource;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
-import org.objectweb.asm.Type;
-import org.objectweb.asm.tree.AnnotationNode;
-import org.objectweb.asm.tree.FieldNode;
 
 import java.io.File;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -75,7 +71,7 @@ public class ConstantInjectionTask extends Copy {
     private JavaClassSource modify(JavaClassSource src) {
         src.getFields()
            .stream()
-           .filter(field -> field.isStatic() && field.isFinal() && field.getLiteralInitializer() != null)
+           .filter(field -> field.isStatic() && field.isFinal())
            .forEach(
                field -> {
                    Optional<AnnotationSource<JavaClassSource>> annotation
@@ -85,7 +81,8 @@ public class ConstantInjectionTask extends Copy {
                               .findFirst();
 
                    annotation.ifPresent(annot -> {
-                       String value = annot.getStringValue(annotArgument);
+                       String value = annotArgument.equals("value") ? annot.getStringValue() : annot.getStringValue(annotArgument);
+                       if (value == null && annotArgument.equals("value")) value = annot.getStringValue("value");
                        Object fv = constants.apply(value);
                        if (fv instanceof Supplier<?>) {
                            fv = ((Supplier<?>) fv).get();
@@ -94,6 +91,7 @@ public class ConstantInjectionTask extends Copy {
                            Closure<?> cl = (Closure<?>) fv;
                            fv = cl.call();
                        }
+                       System.out.println(fv.getClass());
                        if (fv instanceof String)
                            field.setStringInitializer((String) fv);
                        else {
