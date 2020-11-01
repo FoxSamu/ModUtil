@@ -104,6 +104,7 @@ class ModUtilPlugin implements Plugin<Project> {
             group = 'modutil'
             from java.sourceSets.main.allSource
             into "$project.buildDir/sources/java/main"
+            argument 'value'
             constants {
                 ext.getConstant()
             }
