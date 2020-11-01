@@ -37,13 +37,13 @@ public class MarkdownChangelogGenerator {
         out.printf("**For Minecraft %s**\n", info.getMcversion());
         out.println();
         if (info.getDescription() != null) {
-            out.println(info.getDescription());
+            out.println(info.getDescription().replace("<", "&lt;").replace(">", "&gt;").replace("&", "&amp;").replaceAll("\\r|\\n|\\r\\n", "  \n"));
             out.println();
         }
         out.println("#### Changelog");
         out.println();
         for (String changelog : info.getChangelog()) {
-            out.printf("- %s\n", changelog);
+            out.printf("- %s\n", changelog.replace("<", "&lt;").replace(">", "&gt;").replace("&", "&amp;").replaceAll("\\r|\\n|\\r\\n", "  \n"));
         }
         out.close();
     }
