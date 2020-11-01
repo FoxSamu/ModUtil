@@ -81,7 +81,7 @@ public class ModUtilExtension extends GroovyObjectSupport {
     }
 
     public void constant(String name, Object value) {
-        constants.add(key -> key.equals(name) ? value : null);
+        constants.add(key -> name.equals(key) ? value : null);
     }
 
     public void constants(Function<String, Object> fn) {
