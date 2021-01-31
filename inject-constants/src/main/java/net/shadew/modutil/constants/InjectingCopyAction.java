@@ -36,6 +36,7 @@ import org.jboss.forge.roaster.model.source.TypeHolderSource;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -97,11 +98,13 @@ public class InjectingCopyAction implements CopyAction {
                             } else {
                                 stream.println(type);
                             }
+                            stream.flush();
                         }
                     } else {
-                        String raw = baos.toString();
-                        String repl = modifyResource(details.getRelativePath().getPathString(), raw);
-                        stream.println(repl == null ? raw : repl);
+                        byte[] raw = baos.toByteArray();
+                        byte[] repl = modifyResource(details.getRelativePath().getPathString(), raw);
+                        stream.write(repl == null ? raw : repl);
+                        stream.flush();
                     }
                 }
 
@@ -179,15 +182,16 @@ public class InjectingCopyAction implements CopyAction {
         return src;
     }
 
-    private String modifyResource(String path, String content) {
+    private byte[] modifyResource(String path, byte[] content) {
         ConstantsExtension extension = project.getExtensions().getByType(ConstantsExtension.class);
 
-        String[] contentArr = {content};
+        byte[][] contentArr = {content};
         Map<Pattern, Pattern> patterns = extension.getResourcePatterns();
         patterns.forEach((filePattern, contentPattern) -> {
             if (filePattern.matcher(path).matches()) {
+                String contentStr = new String(content, StandardCharsets.UTF_8);
                 StringBuffer replaced = new StringBuffer();
-                Matcher matcher = contentPattern.matcher(content);
+                Matcher matcher = contentPattern.matcher(contentStr);
 
                 while (matcher.find()) {
                     String constName;
@@ -225,7 +229,7 @@ public class InjectingCopyAction implements CopyAction {
                 }
 
                 matcher.appendTail(replaced);
-                contentArr[0] = replaced.toString();
+                contentArr[0] = replaced.toString().getBytes(StandardCharsets.UTF_8);
             }
         });
 
