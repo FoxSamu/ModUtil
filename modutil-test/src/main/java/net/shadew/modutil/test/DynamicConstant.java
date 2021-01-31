@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-task buildAll() {
-    dependsOn gradle.includedBuild("inject-constants").task(":build")
-    dependsOn gradle.includedBuild("changelog").task(":build")
-    dependsOn gradle.includedBuild("shade").task(":build")
-}
+package net.shadew.modutil.test;
 
-task publishAll() {
-    dependsOn gradle.includedBuild("inject-constants").task(":publish")
-    dependsOn gradle.includedBuild("changelog").task(":publish")
-    dependsOn gradle.includedBuild("shade").task(":publish")
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.SOURCE)
+public @interface DynamicConstant {
+    String value();
 }

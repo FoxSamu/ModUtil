@@ -1,0 +1,12 @@
+{
+  "1.16.5": {
+    "0.1.0-alpha.0": "0.1.0-alpha.0 - First release: The first release of testy mod.",
+    "0.1.0-alpha.1": "0.1.0-alpha.1 - First release: The second release of testy mod.",
+    "1.0.0": "1.0.0 - First release: The third release of testy mod.",
+    "1.0.1": "1.0.1 - First release: The fourth release of testy mod."
+  },
+  "promos": {
+    "1.16.5-latest": "1.0.1",
+    "1.16.5-recommended": "1.0.0"
+  }
+}

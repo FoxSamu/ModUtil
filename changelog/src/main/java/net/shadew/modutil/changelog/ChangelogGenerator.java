@@ -14,14 +14,10 @@
  * limitations under the License.
  */
 
-task buildAll() {
-    dependsOn gradle.includedBuild("inject-constants").task(":build")
-    dependsOn gradle.includedBuild("changelog").task(":build")
-    dependsOn gradle.includedBuild("shade").task(":build")
-}
+package net.shadew.modutil.changelog;
 
-task publishAll() {
-    dependsOn gradle.includedBuild("inject-constants").task(":publish")
-    dependsOn gradle.includedBuild("changelog").task(":publish")
-    dependsOn gradle.includedBuild("shade").task(":publish")
+import java.io.IOException;
+
+public interface ChangelogGenerator {
+    void generate() throws IOException;
 }

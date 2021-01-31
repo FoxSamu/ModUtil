@@ -1,0 +1,25 @@
+modLoader = "javafml"
+loaderVersion = "[36,)"
+license = "Apache License 2.0"
+
+[[mods]]
+modId = "modutiltest"
+version = "${file.jarVersion}"
+displayName = "ModUtil Test"
+credits = "By Shadew"
+authors = "Shadew"
+description = "ModUtil test mod"
+
+[[dependencies.modutiltest]]
+modId = "forge"
+mandatory = true
+versionRange = "[36,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.modutiltest]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.16.5,1.17)"
+ordering = "NONE"
+side = "BOTH"

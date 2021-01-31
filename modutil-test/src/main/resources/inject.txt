@@ -1,0 +1,12 @@
+@env{test_static_1}
+@env{test_static_2}
+@env{test_static_3}
+@env{test_map_1}
+@env{test_map_2}
+@env{test_map_3}
+@env{test_dynamic_1}
+@env{test_dynamic_2}
+@env{test_dynamic_3}
+@env{test_properties_1}
+@env{test_properties_2}
+@env{test_properties_3}

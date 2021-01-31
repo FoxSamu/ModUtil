@@ -1,0 +1,16 @@
+{
+  "version": {
+    "number": "1.0.1",
+    "name": "First release",
+    "minecraft": "1.16.5",
+    "stable": false
+  },
+  "description": [
+    "The fourth release of testy mod."
+  ],
+  "changelog": [
+    "Released the mod again",
+    "Added breaking stuff",
+    "Change stuff"
+  ]
+}

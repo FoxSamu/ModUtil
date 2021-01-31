@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-task buildAll() {
-    dependsOn gradle.includedBuild("inject-constants").task(":build")
-    dependsOn gradle.includedBuild("changelog").task(":build")
-    dependsOn gradle.includedBuild("shade").task(":build")
-}
+package net.shadew.modutil.changelog;
 
-task publishAll() {
-    dependsOn gradle.includedBuild("inject-constants").task(":publish")
-    dependsOn gradle.includedBuild("changelog").task(":publish")
-    dependsOn gradle.includedBuild("shade").task(":publish")
+import org.gradle.api.Plugin;
+import org.gradle.api.Project;
+
+public class ChangelogPlugin implements Plugin<Project> {
+
+    @Override
+    public void apply(Project project) {
+        project.getExtensions().create("changelog", ChangelogExtension.class, project);
+        project.getTasks().create("genChangelogs", GenChangelogsTask.class, t -> t.setGroup("other"));
+    }
 }
