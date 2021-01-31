@@ -15,9 +15,9 @@ buildscript {
 
     dependencies {
         // Include ModUtil libraries
-        classpath "net.shadew.modutil:shade:1.0"
-        classpath "net.shadew.modutil:inject-constants:1.0"
-        classpath "net.shadew.modutil:changelog:1.0"
+        classpath "net.shadew.modutil:shade:1.0.2"
+        classpath "net.shadew.modutil:inject-constants:1.0.2"
+        classpath "net.shadew.modutil:changelog:1.0.2"
     }
 }
 
