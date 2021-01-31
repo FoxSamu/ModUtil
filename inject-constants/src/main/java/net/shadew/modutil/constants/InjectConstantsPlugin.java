@@ -39,13 +39,9 @@ public class InjectConstantsPlugin implements Plugin<Project> {
                 ConstantInjectionTask injectConstants = project.getTasks().create(taskName, ConstantInjectionTask.class, t -> {
                     t.setGroup("other");
                     t.setDestinationDir(new File(project.getBuildDir() + "/sources/"));
-                    for (File file : set.getAllJava().getSrcDirs()) {
-                        t.from(file, spec -> spec.into(project.getBuildDir() + "/sources/" + set.getName() + "/java/"));
-                    }
 
-                    for (File file : set.getResources().getSrcDirs()) {
-                        t.from(file, spec -> spec.into(project.getBuildDir() + "/sources/" + set.getName() + "/resources/"));
-                    }
+                    t.from(set.getAllJava(), spec -> spec.into(project.getBuildDir() + "/sources/" + set.getName() + "/java/"));
+                    t.from(set.getResources(), spec -> spec.into(project.getBuildDir() + "/sources/" + set.getName() + "/resources/"));
                 });
 
                 JavaCompile compileJava = (JavaCompile) project.getTasks().getByName(set.getCompileJavaTaskName());

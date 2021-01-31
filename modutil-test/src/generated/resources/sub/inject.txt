@@ -1,0 +1,2 @@
+@env{test_static_1}
+It works
